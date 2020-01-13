@@ -11,7 +11,7 @@ public class TelephoneNumberTest {
     }
 
     @Test
-    public void right_number_starts_with_plus_one(){
+    public void right_number_starts_with_plus_one() throws BadNumberException {
 
         //arrange
         String initialnumber = "+1 (608) 555-1212";
@@ -22,11 +22,27 @@ public class TelephoneNumberTest {
         String result=telephoneNumber.getTelno().substring(0,2);
 
         //assert
-        assertEquals(result,expectedfirsttwoints);
+        assertEquals(expectedfirsttwoints,result);
+
+    }
+
+    @Test
+    public void wrong_number_without_plus_one_rejected() throws BadNumberException {
+
+        //arrange
+        String initialnumber = "01 (608) 555-1212";
+        TelephoneNumber telephoneNumber=new TelephoneNumber(initialnumber);
+        String expectedreturn="01";
+
+        //act
+        String result=telephoneNumber.getTelno().substring(0,2);
+
+        //assert
+        assertEquals(expectedreturn,result);
 
     }
     @Test
-    public void right_number_is_12_characters_long(){
+    public void right_number_is_12_characters_long() throws BadNumberException {
         //arrange
         String initialnumber = "+16085551212";
         TelephoneNumber telephoneNumber=new TelephoneNumber(initialnumber);
@@ -36,12 +52,12 @@ public class TelephoneNumberTest {
         int result=telephoneNumber.getTelno().length();
 
         //assert
-        assertEquals(result,expectedLength);
+        assertEquals(expectedLength,result);
     }
 
 
     @Test
-    public void wrong_number_is_12_characters_long(){
+    public void wrong_number_is_12_characters_long() throws BadNumberException {
         //arrange
         String initialnumber = "+1 (608) 555-1212";
         TelephoneNumber telephoneNumber=new TelephoneNumber(initialnumber);
@@ -51,7 +67,7 @@ public class TelephoneNumberTest {
         String result=telephoneNumber.getTelno();
 
         //assert
-        assertEquals(result,expectedNumber);
+        assertEquals(expectedNumber,result);
     }
 
 }
